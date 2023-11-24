@@ -4,12 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System;
 
 
-namespace BenjiApi.Modelspublic 
-class AdoptionApplication
+namespace BenjiApi.Models
 {
-    public int AppId { get; set; }
-    public string ApplicantName { get; set; }
-    public string ContactInfo { get; set; }
-    public string PreferredAnimal { get; set; }
-    public string AppStatus { get; set; }
+    public class AdoptionApplication
+    {
+        public int AppId { get; set; }
+        public string ApplicantName { get; set; }
+        public string ContactInfo { get; set; }
+        public string PreferredAnimal { get; set; }
+        public string AppStatus { get; set; }
+    }
 }

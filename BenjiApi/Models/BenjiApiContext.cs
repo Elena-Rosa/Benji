@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System;
 
-
 namespace BenjiApi.Models
 {
-    public class BenjiApiContext: DbContext
+    public class BenjiApiContext : DbContext
     {
-        public Dbset<Animal> Animals {get; set; }
-        public Dbset<AdoptionApplication> AdoptionApplications {get; set; }
-        public Dbset<User> Users {get; set; }
-        public BenjiApiContext(DbContextOptions<BenjiApi> options) : base(options)
+        public DbSet<Animal> Animals { get; set; }
+        public DbSet<AdoptionApplication> AdoptionApplications { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Shelter> Shelters { get; set; }
+        public BenjiApiContext(DbContextOptions<BenjiApiContext> options) : base(options)
+        {
+        }
     }
 }
+
 
         
