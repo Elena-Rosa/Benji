@@ -8,7 +8,6 @@ namespace BenjiApi.Models
     public class BenjiApiContext : DbContext
     {
         public DbSet<Animal> Animals { get; set; }
-        public DbSet<User> Users { get; set; }
         public BenjiApiContext(DbContextOptions<BenjiApiContext> options) : base(options)
         {
         }

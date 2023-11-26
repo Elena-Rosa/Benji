@@ -50,7 +50,7 @@ This document provides detailed descriptions and usage examples for each endpoin
 
 ## Base URL
 
-The base URL for all endpoints is: https://localhost:5001/swagger/index.html
+The base URL for all endpoints is: https://localhost:5001/api/animals
 
 ## 1. Get All Animals
 

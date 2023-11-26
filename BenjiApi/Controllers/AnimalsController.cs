@@ -17,10 +17,42 @@ namespace BenjiApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Animal>>> GetAnimals()
-        {
-            return await _db.Animals.ToListAsync();
-        }
+        public async Task<ActionResult<IEnumerable<Animal>>> Get(string species, string name, int minimumAge, string breed, string gender, string adoptionStatus)
+    {
+      IQueryable<Animal> query = _db.Animals.AsQueryable();
+
+      if (species != null)
+      {
+        query = query.Where(entry => entry.Species == species);
+      }
+
+      if (name != null)
+      {
+        query = query.Where(entry => entry.Name == name);
+      }
+
+      if (minimumAge != 0)
+      {
+        query = query.Where(entry => entry.Age >= minimumAge);
+      }
+
+      if (breed != null)
+      {
+        query = query.Where(entry => entry.Breed == breed);
+      }
+
+      if (gender != null)
+      {
+        query = query.Where(entry => entry.Gender == gender);
+      }
+
+      if (adoptionStatus != null)
+      {
+        query = query.Where(entry => entry.AdoptionStatus == adoptionStatus);
+      }
+
+      return await query.ToListAsync();
+    }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Animal>> GetAnimal(int id)
