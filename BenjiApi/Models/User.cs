@@ -10,7 +10,7 @@ namespace BenjiApi.Models
     {
         public int UserId { get; set; }
         public string Name { get; set; }
-        public string ContactInfo { get; set; }
+        public string Email { get; set; }
         public string PreferredAnimal { get; set; }
     }
 }

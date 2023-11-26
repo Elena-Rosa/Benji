@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BenjiApi.Models;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace BenjiApi.Controllers
@@ -18,60 +17,75 @@ namespace BenjiApi.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAnimals()
+        public async Task<ActionResult<IEnumerable<Animal>>> GetAnimals()
         {
-            var animals = _db.Animals.ToList();
-            return Ok(animals);
+            return await _db.Animals.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetAnimal(int id)
+        public async Task<ActionResult<Animal>> GetAnimal(int id)
         {
-            var animal = _db.Animals.FirstOrDefault(a => a.AnimalId == id);
+            Animal animal = await _db.Animals.FindAsync(id); 
 
             if (animal == null)
             {
                 return NotFound();
             }
 
-            return Ok(animal);
+            return (animal);
         }
 
         [HttpPost]
-        public IActionResult CreateAnimal(Animal animal)
+        public async Task<ActionResult<Animal>> Post(Animal animal)
         {
             _db.Animals.Add(animal);
-            _db.SaveChanges();
-
+            await _db.SaveChangesAsync();
             return CreatedAtAction(nameof(GetAnimal), new { id = animal.AnimalId }, animal);
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateAnimal(int id, Animal animal)
+        public async Task<ActionResult> Put(int id, Animal animal)
         {
             if (id != animal.AnimalId)
             {
                 return BadRequest();
             }
 
-            _db.Entry(animal).State = EntityState.Modified;
-            _db.SaveChanges();
+            _db.Animals.Update(animal);
 
+            try
+            {
+                await _db.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!AnimalExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
             return NoContent();
+        }
+         private bool AnimalExists(int id)
+        {
+            return _db.Animals.Any(e => e.AnimalId == id);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteAnimal(int id)
+        public async Task<IActionResult> DeleteAnimal(int id)
         {
-            var animal = _db.Animals.Find(id);
-
+            Animal animal = await _db.Animals.FindAsync(id);
             if (animal == null)
             {
-                return NotFound();
+            return NotFound();
             }
 
             _db.Animals.Remove(animal);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
 
             return NoContent();
         }
