@@ -3,14 +3,13 @@
 #### By: Elena Rosa
 
 ## Description
-An API with authentication. This application allows for a local animal shelter to create and edit their available animals as needed. Users are able to view all pets. 
+An API with pagination. This application allows for a local animal shelter to create and edit animals as needed. Users are able to search for pets in need of a home. 
 
 ## Technologies Used
 - C#
 - ASP.NET Core MVC
 - .NET 5.0
 - Entity Framework Core
-- Identity for ASP.NET Core
 - HTML
 - CSS
 
@@ -44,6 +43,8 @@ An API with authentication. This application allows for a local animal shelter t
 
 11. This application used authentication with Identity. Users must create an account in order to create and edit items. 
 
+
+
 # API Documentation
 
 This document provides detailed descriptions and usage examples for each endpoint in the Benji Application
@@ -52,10 +53,35 @@ This document provides detailed descriptions and usage examples for each endpoin
 
 The base URL for all endpoints is: https://localhost:5001/api/animals
 
-## 1. Get All Animals
+#### Description
 
-### Endpoint
-animals
+Retrieve a list of animals based on specified filters.
+
+#### Query Parameters
+
+- `species` (string): Filter animals by species.
+- `name` (string): Filter animals by name.
+- `minimumAge` (int): Filter animals by minimum age.
+- `breed` (string): Filter animals by breed.
+- `gender` (string): Filter animals by gender.
+- `adoptionStatus` (string): Filter animals by adoption status.
+
+## Animal by ID
+GET /api/animal/{id}
+Retrieve details of a specific animal by its ID.
+Example, "https:/localhost:5001/api/animal/1"
+
+## Add a New Animal
+POST /api/animal
+Add a new animal to the database.
+
+## Update Animal Information
+PUT /api/animal/{id}
+Update information about a specific animal.
+
+## Delete Animal
+DELETE /api/animal/{id}
+Delete a specific animal by its ID.
 
 
 
