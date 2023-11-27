@@ -84,6 +84,21 @@ DELETE /api/animal/{id}
 Delete a specific animal by its ID.
 
 
+# Pagination
+Pagination is applied to the list of animals. This enables clients to retrieve a specific subset of animals rather than the entire collection in a single request.
+
+To retrieve a list of animals with pagination, you can make a GET request to the /api/animal endpoint. The following query parameters are available for pagination:
+example: GET /api/animal?page=2&pageSize=10
+
+The API response includes pagination information:
+TotalCount of animals in database
+TotalPages on specified page.
+CurrentPage
+PageSize(number of items per page)
+Animals list for current page
+
+
+
 
 ## Known Bugs
 - Please visit this projects [GitHub repository](https://github.com/Elena-Rosa/BenjiApi.git) to submit Issues and Pull Requests.

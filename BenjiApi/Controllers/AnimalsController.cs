@@ -17,47 +17,52 @@ namespace BenjiApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Animal>>> Get(string species, string name, int minimumAge, string breed, string gender, string adoptionStatus)
-    {
-      IQueryable<Animal> query = _db.Animals.AsQueryable();
+        public async Task<ActionResult<IEnumerable<Animal>>> Get(string species, string name, int minimumAge, string breed, string gender, string adoptionStatus, int page = 1, int pageSize = 10)
+        {
 
-      if (species != null)
-      {
-        query = query.Where(entry => entry.Species == species);
-      }
+            int skip = (page - 1) * pageSize;
 
-      if (name != null)
-      {
-        query = query.Where(entry => entry.Name == name);
-      }
+            IQueryable<Animal> query = _db.Animals.AsQueryable();
 
-      if (minimumAge != 0)
-      {
-        query = query.Where(entry => entry.Age >= minimumAge);
-      }
+            if (species != null)
+            {
+                query = query.Where(entry => entry.Species == species);
+            }
 
-      if (breed != null)
-      {
-        query = query.Where(entry => entry.Breed == breed);
-      }
+            if (name != null)
+            {
+                query = query.Where(entry => entry.Name == name);
+            }
 
-      if (gender != null)
-      {
-        query = query.Where(entry => entry.Gender == gender);
-      }
+            if (minimumAge != 0)
+            {
+                query = query.Where(entry => entry.Age >= minimumAge);
+            }
 
-      if (adoptionStatus != null)
-      {
-        query = query.Where(entry => entry.AdoptionStatus == adoptionStatus);
-      }
+            if (breed != null)
+            {
+                query = query.Where(entry => entry.Breed == breed);
+            }
 
-      return await query.ToListAsync();
-    }
+            if (gender != null)
+            {
+                query = query.Where(entry => entry.Gender == gender);
+            }
+
+            if (adoptionStatus != null)
+            {
+                query = query.Where(entry => entry.AdoptionStatus == adoptionStatus);
+            }
+
+            query = query.Skip(skip).Take(pageSize);
+
+            return await query.ToListAsync();
+        }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Animal>> GetAnimal(int id)
         {
-            Animal animal = await _db.Animals.FindAsync(id); 
+            Animal animal = await _db.Animals.FindAsync(id);
 
             if (animal == null)
             {
@@ -102,7 +107,7 @@ namespace BenjiApi.Controllers
             }
             return NoContent();
         }
-         private bool AnimalExists(int id)
+        private bool AnimalExists(int id)
         {
             return _db.Animals.Any(e => e.AnimalId == id);
         }
@@ -113,7 +118,7 @@ namespace BenjiApi.Controllers
             Animal animal = await _db.Animals.FindAsync(id);
             if (animal == null)
             {
-            return NotFound();
+                return NotFound();
             }
 
             _db.Animals.Remove(animal);
