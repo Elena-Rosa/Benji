@@ -66,14 +66,14 @@ Retrieve a list of animals based on specified filters.
 - `gender` (string): Filter animals by gender.
 - `adoptionStatus` (string): Filter animals by adoption status.
 
-## Animal by ID
+#### Animal by ID
 GET /api/animal/{id}
 Retrieve details of a specific animal by its ID.
 
-# Example Get request
+#### Example Get request
 https:/localhost:5001/api/animal/1"
 
-# Response
+#### Response
 {
   "animalID: 1
   "Species", dog,
@@ -84,15 +84,15 @@ https:/localhost:5001/api/animal/1"
   "adopton status": "available"
 }
 
-## Add a New Animal
+#### Add a New Animal
 POST /api/animal
 Add a new animal to the database.
 
-## Update Animal Information
+#### Update Animal Information
 PUT /api/animal/{id}
 Update information about a specific animal.
 
-## Delete Animal
+#### Delete Animal
 DELETE /api/animal/{id}
 Delete a specific animal by its ID.
 
