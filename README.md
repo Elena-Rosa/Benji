@@ -24,12 +24,12 @@ An API with pagination. This application allows for a local animal shelter to cr
     ```json
     {
       "ConnectionStrings": {
-          "DefaultConnection": "Server=localhost;Port=3306;database=Factory-database;uid=[YOUR-USERNAME];pwd=[YOUR-MYSQL-PASSWORD];"
+          "DefaultConnection": "Server=localhost;Port=3306;database=Benji-database;uid=[YOUR-USERNAME];pwd=[YOUR-MYSQL-PASSWORD];"
       }
     }
     ```
 
-5. Navigate to the project directory: `$ cd Factory`
+5. Navigate to the project directory: `$ cd Benji`
 
 6. Run the command dotnet restore to install necessary packages.
 
@@ -69,7 +69,20 @@ Retrieve a list of animals based on specified filters.
 ## Animal by ID
 GET /api/animal/{id}
 Retrieve details of a specific animal by its ID.
-Example, "https:/localhost:5001/api/animal/1"
+
+# Example Get request
+https:/localhost:5001/api/animal/1"
+
+# Response
+{
+  "animalID: 1
+  "Species", dog,
+  "name": "Benji",
+  "age": "12,
+  "breed": Poodlelab",
+  "gender": "Male".
+  "adopton status": "available"
+}
 
 ## Add a New Animal
 POST /api/animal
@@ -82,6 +95,8 @@ Update information about a specific animal.
 ## Delete Animal
 DELETE /api/animal/{id}
 Delete a specific animal by its ID.
+
+
 
 
 # Pagination
